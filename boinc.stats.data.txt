@@ -1,0 +1,147 @@
+//	Download XML Stats files from each project
+https://boinc.berkeley.edu/trac/wiki/XmlStats
+
+//	Credit System
+https://boinc.berkeley.edu/trac/wiki/CreditStats
+
+//	Web RPC
+https://boinc.berkeley.edu/trac/wiki/WebRpc
+
+
+
+---------------------------------------------------------------
+Codes
+
+are:
+
+-1: Generic error (error_string may have more info)
+
+-112: Invalid XML (e.g., the preferences passed to am_set_info.php are invalid)
+
+-136: Item not found in database (bad ID of any sort, or ID refers to an item not owned by the caller)
+
+-137: Name is not unique. The EMail address or team name is already in use.
+
+-138: Can't access database (treat same as -183)
+
+-161: Item not found (deprecated; treat same as -136)
+
+-183: Project is temporarily down
+
+-205: Email address has invalid syntax
+
+-206: Wrong password
+
+-207: Non-unique email address (treat same as -137)
+
+-208: Account creation disabled
+
+-209: Attach failed. Perhaps due to invalid invitation code.
+
+---------------------------------------------------------------
+
+action
+Export project or account manager configuration info.
+URL
+project_url/get_project_config.php
+input
+none.
+examples
+​http://setiathome.berkeley.edu/get_project_config.php
+
+---------------------------------------------------------------
+
+Server status
+action
+Get project status. Can be used used to make web sites showing the server status of multiple BOINC projects. Do not poll more often than 10 minutes.
+URL
+project_url/server_status.php
+input
+[ xml ]
+output formatting. 0=HTML (default), 1=XML.
+examples
+​http://lhcathome.cern.ch/lhcathome/server_status.php?xml=1
+
+---------------------------------------------------------------
+
+Look up account
+action
+If passwd_hash is given and is correct, the user's authentication string is returned. This authentication string is required for many of the other RPCs. If no paswd_hash is given and the account exists, a success message is returned. If no account with the EMail address provided exists, an error is returned.
+If ldap_auth is non-zero and ldap_uid and passwd are given, authenticate using the LDAP_HOST specified in project.inc. If no account with the EMail address of the ldap_uid exists, a new one is created and the authenticator returned.
+
+URL
+project_url/lookup_account.php
+input
+[ email_addr ]
+email address of account (ignored when ldap_auth is non-zero)
+[ passwd_hash ]
+The MD5 hash of the concatenation of the user's password and the lower case form of the account's EMail address.
+[ ldap_auth ]
+Needs to be non-zero in order to use LDAP authentication. When enabled, ldap_uid and passwd must be supplied too.
+[ ldap_uid ]
+The LDAP userid that can be found on LDAP_HOST (defined in project.inc)
+[ passwd ]
+The password authenticating the LDAP userid.
+examples
+​http://ralph.bakerlab.org/lookup_account.php?email_addr=user@example.com&passwd_hash=2ab598faf3160ccfa1a2d41a95557a92&get_opaque_auth=1
+
+
+---------------------------------------------------------------
+
+Create team
+REMOVED; SPAM
+
+action
+Creates a team
+URL
+project/create_team.php
+input
+account_key
+Authentication string of team founder's user account. See create account RPC or lookup account RPC
+opaque_auth
+opaque authenticator, if present.
+name
+name of team.
+[ url ]
+team URL.
+type
+one of these types.
+[ name_html ]
+team name, with HTML formatting.
+[ description ]
+text describing team.
+[ country ]
+team country (if present, must be one of these countries).
+
+
+
+---------------------------------------------------------------
+
+
+
+
+
+---------------------------------------------------------------
+
+
+
+
+---------------------------------------------------------------
+
+
+
+---------------------------------------------------------------
+
+---------------------------------------------------------------
+
+
+
+
+---------------------------------------------------------------
+
+
+---------------------------------------------------------------
+
+
+
+---------------------------------------------------------------
